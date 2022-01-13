@@ -3,6 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles/style.css" />
     <title>TODO LIST</title>
   </head>
@@ -12,23 +25,22 @@
     </header>
 
     <form>
-      <input type="text" />
-      <input type="number" min="1" max="12" placeholder="月" required />
-      <input type="number" min="1" max="31" placeholder="日" required />
+      <input type="text" placeholder="例如: 學習 JavaScript" />
       <button type="submit">新增</button>
     </form>
 
-    <div class="sort">
-      <button>依照日期排序</button>
-    </div>
-
     <section>
-      <!-- <div class="todo">
-        <p class="todo-time">10/31</p>
-        <p class="todo-text">Play PC</p>
-        <button class="complete"></button>
-        <button class="remove"></button>
-      </div> -->
+      <div class="todo">
+        <div class="container">
+          <p class="todo-text">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores
+            dolores quas suscipit soluta placeat dolore obcaecati voluptatem
+            illo eius? Voluptas.
+          </p>
+          <button class="complete"><i class="fas fa-check"></i></button>
+          <button class="remove"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
     </section>
   </body>
   <script src="app.js"></script>
