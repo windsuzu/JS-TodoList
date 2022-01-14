@@ -1,47 +1,49 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles/style.css" />
-    <title>TODO LIST</title>
-  </head>
-  <body>
-    <header>
-      <h1>My Todo List</h1>
-    </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+            integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="styles/style.css" />
+        <title>TODO LIST</title>
+    </head>
+    <body>
+        <header>
+            <h1>My Todo List</h1>
+        </header>
 
-    <form>
-      <input type="text" placeholder="例如: 學習 JavaScript" />
-      <button type="submit">新增</button>
-    </form>
+        <form>
+            <input type="text" placeholder="例如: 學習 JavaScript" />
+            <button type="submit">新增</button>
+        </form>
 
-    <section>
-      <div class="todo">
-        <div class="container">
-          <p class="todo-text">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores
-            dolores quas suscipit soluta placeat dolore obcaecati voluptatem
-            illo eius? Voluptas.
-          </p>
-          <button class="complete"><i class="fas fa-check"></i></button>
-          <button class="remove"><i class="fas fa-trash"></i></button>
-        </div>
-      </div>
-    </section>
-  </body>
-  <script src="app.js"></script>
+        <section>
+            <div class="todo">
+                <div class="container">
+                    <p class="todo-text">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Asperiores dolores quas suscipit soluta placeat
+                        dolore obcaecati voluptatem illo eius? Voluptas.
+                    </p>
+                    <div class="buttons">
+                        <i class="complete fas fa-check"></i>
+                        <i class="remove fas fa-trash"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+    <script src="app.js"></script>
 </html>
