@@ -64,7 +64,7 @@ div.todo {
     padding: 0.75rem 0.5rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     width: 50%;
-    background: white;
+    background: rgba(255, 255, 255, 1);
     border-radius: 5px;
     animation: scaleUp 0.3s forwards;
     transition: all 0.3s;
@@ -87,7 +87,6 @@ div.todo {
 
     div.buttons {
         flex: 1 1 100px;
-        background-color: white;
         font-size: 1.5rem;
         border: none;
         display: flex;
@@ -107,8 +106,8 @@ div.todo {
     }
 }
 
-div.todo .done {
-    transition: all 0.3s;
+.done {
+    background: rgba(255, 255, 255, 0.3);
     opacity: 0.5;
 
     p {

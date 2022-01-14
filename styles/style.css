@@ -132,7 +132,6 @@ div.todo div.buttons {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 100px;
           flex: 1 1 100px;
-  background-color: white;
   font-size: 1.5rem;
   border: none;
   display: -webkit-box;
@@ -157,13 +156,12 @@ div.todo i.fa-trash {
   padding: 1rem 1.1rem;
 }
 
-div.todo .done {
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+.done {
+  background: rgba(255, 255, 255, 0.3);
   opacity: 0.5;
 }
 
-div.todo .done p {
+.done p {
   text-decoration: line-through;
 }
 

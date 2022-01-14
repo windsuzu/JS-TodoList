@@ -64,8 +64,7 @@ function createTodoItem(todoText) {
     todo.appendChild(container);
 
     completeButton.addEventListener("click", (e) => {
-        let todo = e.target.parentElement.parentElement;
-        todo.style.transition = "all 0.3s";
+        let todo = e.target.parentElement.parentElement.parentElement;
         todo.classList.toggle("done");
     });
 
