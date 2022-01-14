@@ -21,28 +21,6 @@ addButton.addEventListener("click", async (e) => {
     todoText.value = "";
 });
 
-// use promise to simulate async task
-function storeTodoItem(todoText) {
-    return new Promise((res, rej) => {
-        let todo_list = JSON.parse(localStorage.getItem(TODO_LIST_KEY)) || [];
-        if (todo_list.includes(todoText)) {
-            rej("todo duplicated.");
-        } else {
-            todo_list.push(todoText);
-            localStorage.setItem(TODO_LIST_KEY, JSON.stringify(todo_list));
-            res(todoText);
-        }
-    });
-}
-
-function loadTodoItemList() {
-    let todo_list = JSON.parse(localStorage.getItem(TODO_LIST_KEY)) || [];
-    for (todoText of todo_list) {
-        todo = createTodoItem(todoText);
-        section.appendChild(todo);
-    }
-}
-
 function createTodoItem(todoText) {
     let todo = document.createElement("div");
     todo.classList.add("todo");
@@ -70,10 +48,64 @@ function createTodoItem(todoText) {
 
     removeButton.addEventListener("click", (e) => {
         let todo = e.target.parentElement.parentElement.parentElement;
-        todo.style.animation = "scaleDown 0.3s forwards";
-        todo.addEventListener("animationend", (e) => {
-            todo.remove();
-        });
+        let todoText = todo.children[0].children[0].innerText;
+
+        removeTodoItem(todoText)
+            .then((res) => {
+                console.log(res);
+                todo.style.animation = "scaleDown 0.3s forwards";
+                todo.addEventListener("animationend", (_) => {
+                    todo.remove();
+                });
+            })
+            .catch((err) => {
+                alert(err);
+            });
     });
     return todo;
+}
+
+/**
+ * use promise to simulate async task
+ */
+function storeTodoItem(todoText) {
+    return new Promise((res, rej) => {
+        let todo_list = JSON.parse(localStorage.getItem(TODO_LIST_KEY)) || [];
+        if (todo_list.includes(todoText)) {
+            rej("Todo duplicated.");
+        } else {
+            todo_list.push(todoText);
+            localStorage.setItem(TODO_LIST_KEY, JSON.stringify(todo_list));
+            res(todoText);
+        }
+    });
+}
+
+/**
+ * use promise to simulate async task
+ */
+function removeTodoItem(todoText) {
+    return new Promise((res, rej) => {
+        let todo_list = JSON.parse(localStorage.getItem(TODO_LIST_KEY)) || [];
+
+        if (todo_list.includes(todoText)) {
+            // use splice to remove item from the array
+            todo_list.splice(todo_list.indexOf(todoText), 1);
+            localStorage.setItem(TODO_LIST_KEY, JSON.stringify(todo_list));
+            res("Remove Successfully.");
+        } else {
+            rej("Something went wrong!");
+        }
+    });
+}
+
+/**
+ * load todo items directly
+ */
+function loadTodoItemList() {
+    let todo_list = JSON.parse(localStorage.getItem(TODO_LIST_KEY)) || [];
+    for (todoText of todo_list) {
+        todo = createTodoItem(todoText);
+        section.appendChild(todo);
+    }
 }
