@@ -1,17 +1,49 @@
-let section = document.querySelector("section");
-let addButton = document.querySelector("form button");
+const TODO_LIST_KEY = "todo_list";
+const section = document.querySelector("section");
+const addButton = document.querySelector("form button");
 
-addButton.addEventListener("click", (e) => {
+loadTodoItemList();
+
+addButton.addEventListener("click", async (e) => {
     e.preventDefault();
     let [todoText] = e.target.parentElement.children;
     if (!todoText.value) return;
 
     // Add a new todo item to HTML
-    addTodoItem(todoText.value);
+    storeTodoItem(todoText.value)
+        .then((res) => {
+            todo = createTodoItem(res);
+            section.appendChild(todo);
+        })
+        .catch((err) => {
+            alert(err);
+        });
     todoText.value = "";
 });
 
-function addTodoItem(todoText) {
+// use promise to simulate async task
+function storeTodoItem(todoText) {
+    return new Promise((res, rej) => {
+        let todo_list = JSON.parse(localStorage.getItem(TODO_LIST_KEY)) || [];
+        if (todo_list.includes(todoText)) {
+            rej("todo duplicated.");
+        } else {
+            todo_list.push(todoText);
+            localStorage.setItem(TODO_LIST_KEY, JSON.stringify(todo_list));
+            res(todoText);
+        }
+    });
+}
+
+function loadTodoItemList() {
+    let todo_list = JSON.parse(localStorage.getItem(TODO_LIST_KEY)) || [];
+    for (todoText of todo_list) {
+        todo = createTodoItem(todoText);
+        section.appendChild(todo);
+    }
+}
+
+function createTodoItem(todoText) {
     let todo = document.createElement("div");
     todo.classList.add("todo");
     let container = document.createElement("div");
@@ -30,7 +62,6 @@ function addTodoItem(todoText) {
     container.appendChild(text);
     container.appendChild(buttons);
     todo.appendChild(container);
-    section.appendChild(todo);
 
     completeButton.addEventListener("click", (e) => {
         let todo = e.target.parentElement.parentElement;
@@ -45,4 +76,5 @@ function addTodoItem(todoText) {
             todo.remove();
         });
     });
+    return todo;
 }
