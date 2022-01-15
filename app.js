@@ -1,8 +1,8 @@
-const TODO_LIST_KEY = "todo_list";
+const TODO_MAP_KEY = "todo_map";
 const section = document.querySelector("section");
 const addButton = document.querySelector("form button");
 
-loadTodoItemList();
+loadTodoItems();
 
 addButton.addEventListener("click", async (e) => {
     e.preventDefault();
@@ -21,9 +21,11 @@ addButton.addEventListener("click", async (e) => {
     todoText.value = "";
 });
 
-function createTodoItem(todoText) {
+function createTodoItem(todoText, done = false) {
     let todo = document.createElement("div");
     todo.classList.add("todo");
+    if (done) todo.classList.add("done");
+
     let container = document.createElement("div");
     container.classList.add("container");
     let text = document.createElement("p");
@@ -43,7 +45,9 @@ function createTodoItem(todoText) {
 
     completeButton.addEventListener("click", (e) => {
         let todo = e.target.parentElement.parentElement.parentElement;
-        todo.classList.toggle("done");
+        let done = todo.classList.toggle("done");
+        let todoText = todo.children[0].children[0].innerText;
+        updateTodoItem(todoText, done);
     });
 
     removeButton.addEventListener("click", (e) => {
@@ -70,12 +74,12 @@ function createTodoItem(todoText) {
  */
 function storeTodoItem(todoText) {
     return new Promise((res, rej) => {
-        let todo_list = JSON.parse(localStorage.getItem(TODO_LIST_KEY)) || [];
-        if (todo_list.includes(todoText)) {
+        let todoMap = JSON.parse(localStorage.getItem(TODO_MAP_KEY)) || {};
+        if (todoText in todoMap) {
             rej("Todo duplicated.");
         } else {
-            todo_list.push(todoText);
-            localStorage.setItem(TODO_LIST_KEY, JSON.stringify(todo_list));
+            todoMap[todoText] = false;
+            localStorage.setItem(TODO_MAP_KEY, JSON.stringify(todoMap));
             res(todoText);
         }
     });
@@ -86,12 +90,13 @@ function storeTodoItem(todoText) {
  */
 function removeTodoItem(todoText) {
     return new Promise((res, rej) => {
-        let todo_list = JSON.parse(localStorage.getItem(TODO_LIST_KEY)) || [];
+        let todoMap = JSON.parse(localStorage.getItem(TODO_MAP_KEY)) || {};
 
-        if (todo_list.includes(todoText)) {
-            // use splice to remove item from the array
-            todo_list.splice(todo_list.indexOf(todoText), 1);
-            localStorage.setItem(TODO_LIST_KEY, JSON.stringify(todo_list));
+        if (todoText in todoMap) {
+            // remove item from the map (dictionary)
+            delete todoMap[todoText];
+
+            localStorage.setItem(TODO_MAP_KEY, JSON.stringify(todoMap));
             res("Remove Successfully.");
         } else {
             rej("Something went wrong!");
@@ -102,10 +107,19 @@ function removeTodoItem(todoText) {
 /**
  * load todo items directly
  */
-function loadTodoItemList() {
-    let todo_list = JSON.parse(localStorage.getItem(TODO_LIST_KEY)) || [];
-    for (todoText of todo_list) {
-        todo = createTodoItem(todoText);
+function loadTodoItems() {
+    let todoMap = JSON.parse(localStorage.getItem(TODO_MAP_KEY)) || {};
+    for (key in todoMap) {
+        todo = createTodoItem(key, todoMap[key]);
         section.appendChild(todo);
     }
+}
+
+/**
+ * update todo item state
+ */
+function updateTodoItem(key, done) {
+    let todoMap = JSON.parse(localStorage.getItem(TODO_MAP_KEY)) || {};
+    todoMap[key] = done;
+    localStorage.setItem(TODO_MAP_KEY, JSON.stringify(todoMap));
 }
